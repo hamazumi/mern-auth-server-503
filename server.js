@@ -31,16 +31,13 @@ const middleWare = (req, res, next) => {
 app.get('/', middleWare, (req, res) => {
     console.log(res.locals)
     res.locals.anything = "🐟"
-    
+    res.json({msg: "hello"})
 })
 
 
 
 //test route
 
-app.get('/', (req,res) => {
-    res.json({msg: 'hello from the backend! 🐌'})
-})
 
 //listen on a port
 app.listen(PORT, () => {
