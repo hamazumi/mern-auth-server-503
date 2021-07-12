@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const favoriteSchema = new mongoose.Schema({
     title: String,
-    hike: String
+    
 })
 
 const UserSchema = new mongoose.Schema({
