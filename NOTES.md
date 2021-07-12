@@ -47,5 +47,15 @@ description :'description of event',
 price: false
 website: 'website'
 },
+{
+name: 'Camerons live ',
+date : 'date of event',
+location : 'city',
+venue : 'venue',
+time: time,
+description :'description of event',
+price: false
+website: 'website'
+},
 
 ])
