@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken')
 const authLockedRoute = require('./authLockedRoute.js')
 
 // GET /users -- test api endpoint
-router.get('/', (req,res) => {
+router.get('/', async (req,res) => {
+    
     res.json({msg: 'hi, the user endpoint is ok 🆗'})
 })
 
@@ -39,6 +40,7 @@ router.post('/register', async (req,res) => {
         const payload ={
             name: newUser.name,
             email: newUser.email,
+            favorites: req.body.favorites,
             id: newUser.id
         }
 
@@ -51,6 +53,7 @@ router.post('/register', async (req,res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 })
+
 //POST /user/login -- validate login credentials
 router.post('/login', async (req,res) =>{
     try{
@@ -89,13 +92,15 @@ router.post('/login', async (req,res) =>{
 // GET /auth-locked -- will redirect if a bad jwt is found (or if one is not found)
 router.get('/auth-locked', authLockedRoute, (req, res) => {
     //do whatever with the user
-    console.log(res.locals.user)
+    console.log(res.locals.user.favorites)
     // send private data back
-    res.json({msg: 'welcome to the auth locked route you lucky dog'})
+    // res.json({msg: 'welcome to the auth locked route you lucky dog'})
+    // res.locals.user.favorites.forEach(favorite => {
+    //     res.redirect({favorite})
+    // })
 
     // Show list of favorites 
-
-
+    
 })
 
 

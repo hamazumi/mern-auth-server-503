@@ -15,7 +15,7 @@ const connect = () => {
     db.once('open', () => {
         console.log(`🔗 MONGODB Connected at ${db.host}: ${db.port}`)
     })
-    db.on('error', () => {
+    db.on('err', (err) => {
         console.log('uh oh spaghetti')
         console.log(err)
     })

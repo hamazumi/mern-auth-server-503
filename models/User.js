@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     name: String,
     password: String,
     email: String,
-    favorites: [String],
+    favorites: [String]
 
 }, {
     timestamps: true
