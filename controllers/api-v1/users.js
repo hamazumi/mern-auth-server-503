@@ -30,7 +30,8 @@ router.post('/register', async (req,res) => {
         const newUser = await db.User({
             name: req.body.name,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            favorites: req.body.favorites
         })
         await newUser.save()
 
@@ -93,7 +94,7 @@ router.get('/auth-locked', authLockedRoute, (req, res) => {
     res.json({msg: 'welcome to the auth locked route you lucky dog'})
 
     // Show list of favorites 
-    
+
 
 })
 
