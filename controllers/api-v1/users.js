@@ -89,6 +89,40 @@ router.post('/login', async (req,res) =>{
     }
 })
 
+
+
+//PUT /park -- to add favorite park into user favorites:
+router.put('/park/:id/add', async (req,res) =>{
+    try{
+        // try to find user in db from the req.body.email
+        const updateFavorites = await db.User.findOne({ email: req.body.email }) //front-end should be using currentUser state to get email
+        updateFavorites.favorites.push({title: req.params.id})
+
+        await updateFavorites.save()
+        res.send(updateFavorites)
+
+    }catch(err) {
+        console.log(err)
+    }
+})
+
+//PUT /park -- to delete favorite park into user favorites:
+router.put('/park/:id/delete', async (req,res) =>{
+    try{
+        // try to find user in db from the req.body.email
+        const updateFavorites = await db.User.findOne({ email: req.body.email }) //front-end should be using currentUser state to get email
+        updateFavorites.favorites.pop({title: req.params.id})
+
+        await updateFavorites.save()
+        res.send(updateFavorites)
+
+    }catch(err) {
+        console.log(err)
+    }
+})
+
+
+
 // GET /auth-locked -- will redirect if a bad jwt is found (or if one is not found)
 router.get('/auth-locked', authLockedRoute, (req, res) => {
     //do whatever with the user
