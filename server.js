@@ -20,6 +20,7 @@ app.use(express.json()) //for the request body
 app.use(express.urlencoded({extended: false}))
 // controllers
 app.use('/api-v1/users', require('./controllers/api-v1/users.js'))
+// app.use('/api-v1/profile', require('./controllers/api-v1/profile.js'))
 
 // custom middleware
 

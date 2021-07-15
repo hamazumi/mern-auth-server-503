@@ -92,12 +92,12 @@ router.post('/login', async (req,res) =>{
 // GET /auth-locked -- will redirect if a bad jwt is found (or if one is not found)
 router.get('/auth-locked', authLockedRoute, (req, res) => {
     //do whatever with the user
-    console.log(res.locals.user.favorites)
+    // console.log(res.locals.user.favorites)
+    const myFavs = res.locals.user.favorites
+    console.log(myFavs)
     // send private data back
-    // res.json({msg: 'welcome to the auth locked route you lucky dog'})
-    // res.locals.user.favorites.forEach(favorite => {
-    //     res.redirect({favorite})
-    // })
+    res.json({myFavs})
+    
 
     // Show list of favorites 
     
