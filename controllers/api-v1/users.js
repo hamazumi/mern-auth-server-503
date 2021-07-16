@@ -96,7 +96,12 @@ router.put('/park/:id/add', async (req,res) =>{
     try{
         // try to find user in db from the req.body.email
         const updateFavorites = await db.User.findOne({ email: req.body.email }) //front-end should be using currentUser state to get email
-        updateFavorites.favorites.push({title: req.params.id})
+        if(updateFavorites.favorites.includes({title: req.params.id}, i) == false){
+
+            updateFavorites.favorites.push({title: req.params.id})
+        }else{
+            console.log("already in favorites")
+        }
 
         await updateFavorites.save()
         res.send(updateFavorites)
@@ -111,21 +116,18 @@ router.put('/park/:id/delete', async (req,res) =>{
     try{
         // try to find user in db from the req.body.email
         const updateFavorites = await db.User.findOne({ email: req.body.email }) //front-end should be using currentUser state to get email
-        // updateFavorites.favoritess.pop({title: req.params.id})
-        updateFavorites.favorites.forEach(fav => {
-            if(fav == {title: req.params.id}){
-                updateFavorites.splice(findIndex(fav),1)
+        updateFavorites.favorites.forEach((fav, i) => {
+            if(fav.title === req.params.id){
+                // console.log(req.params.id)
+                updateFavorites.favorites.splice(i ,1)
             }
         })
-
         await updateFavorites.save()
         res.send(updateFavorites)
-
     }catch(err) {
         console.log(err)
     }
 })
-
 
 
 // GET /auth-locked -- will redirect if a bad jwt is found (or if one is not found)
