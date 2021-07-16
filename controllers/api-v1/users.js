@@ -96,7 +96,8 @@ router.put('/park/:id/add', async (req,res) =>{
     try{
         // try to find user in db from the req.body.email
         const updateFavorites = await db.User.findOne({ email: req.body.email }) //front-end should be using currentUser state to get email
-        if(updateFavorites.favorites.includes({title: req.params.id}, i) == false){
+        console.log("Heyyyyooooo")
+        if(updateFavorites.favorites.includes({title: req.params.id}) == false){
 
             updateFavorites.favorites.push({title: req.params.id})
         }else{
@@ -106,8 +107,9 @@ router.put('/park/:id/add', async (req,res) =>{
         await updateFavorites.save()
         res.send(updateFavorites)
 
-    }catch(err) {
+    }catch(err) { 
         console.log(err)
+        res.json({msg: "favorite already exists"})
     }
 })
 
