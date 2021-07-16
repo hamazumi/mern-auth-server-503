@@ -1,8 +1,8 @@
 # Park Hopper
 
-![Wireframe](images/image .png)
-![Wireframe2](images/image (1).png)
-![Wireframe3](images/image (2).png)
+![Wireframe](images/image.png)
+![Wireframe2](images/image1.png)
+![Wireframe3](images/image.png)
 
 ### Technologies Used
 
