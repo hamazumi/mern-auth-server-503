@@ -32,7 +32,7 @@ router.post('/register', async (req,res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
-            favorites: req.body.favorites
+            // favorites: req.body.favorites
         })
         await newUser.save()
 
@@ -40,7 +40,7 @@ router.post('/register', async (req,res) => {
         const payload ={
             name: newUser.name,
             email: newUser.email,
-            favorites: req.body.favorites,
+            // favorites: req.body.favorites,
             id: newUser.id
         }
 

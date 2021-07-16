@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const favoriteSchema = new mongoose.Schema({
     title: {
         type: String,
-        unique: true
+        // unique: true
     }
     
     
