@@ -100,7 +100,7 @@ router.put('/park/:id/add', async (req,res) =>{
 
         // -----for loop, if favorites array contains title:------
 
-        if(updateFavorites.favorites.title.includes({title: req.params.id}) == false){
+        if(updateFavorites.favorites.includes({title: req.params.id}) == false){
 
             updateFavorites.favorites.push({title: req.params.id})
         }else{
