@@ -111,10 +111,11 @@ router.put('/park/:id/delete', async (req,res) =>{
     try{
         // try to find user in db from the req.body.email
         const updateFavorites = await db.User.findOne({ email: req.body.email }) //front-end should be using currentUser state to get email
-        updateFavorites.favorites.pop({title: req.params.id})
-        updateFavoties.forEach(fav => {
-            if(fav == req.params.id){
-                updateFavorites.splice(findIndex(fav),1)
+
+        updateFavorites.favorites.forEach((fav, i) => {
+            if(fav.title === req.params.id){
+                // console.log(req.params.id)
+                updateFavorites.favorites.splice(i ,1)
             }
         })
 
