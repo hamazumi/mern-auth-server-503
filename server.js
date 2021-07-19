@@ -20,19 +20,20 @@ app.use(express.json()) //for the request body
 app.use(express.urlencoded({extended: false}))
 // controllers
 app.use('/api-v1/users', require('./controllers/api-v1/users.js'))
+// app.use('/api-v1/profile', require('./controllers/api-v1/profile.js'))
 
 // custom middleware
 
-const middleWare = (req, res, next) => {
-    console.log('I am a route specific middlware')
-    next()
-}
-// only uses this on one route, use app.use((req,res,next)) to use for all routes
-app.get('/', middleWare, (req, res) => {
-    console.log(res.locals)
-    res.locals.anything = "🐟"
-    res.json({msg: "hello"})
-})
+// const middleWare = (req, res, next) => {
+//     console.log('I am a route specific middlware')
+//     next()
+// }
+// // only uses this on one route, use app.use((req,res,next)) to use for all routes
+// app.get('/', middleWare, (req, res) => {
+//     console.log(res.locals)
+//     res.locals.anything = "🐟"
+    
+// })
 
 
 

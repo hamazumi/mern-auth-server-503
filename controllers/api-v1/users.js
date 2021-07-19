@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken')
 const authLockedRoute = require('./authLockedRoute.js')
 
 // GET /users -- test api endpoint
-router.get('/', (req,res) => {
+router.get('/', async (req,res) => {
+    
     res.json({msg: 'hi, the user endpoint is ok 🆗'})
 })
 
@@ -30,7 +31,8 @@ router.post('/register', async (req,res) => {
         const newUser = await db.User({
             name: req.body.name,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            // favorites: req.body.favorites
         })
         await newUser.save()
 
@@ -38,6 +40,7 @@ router.post('/register', async (req,res) => {
         const payload ={
             name: newUser.name,
             email: newUser.email,
+            // favorites: req.body.favorites,
             id: newUser.id
         }
 
@@ -50,6 +53,7 @@ router.post('/register', async (req,res) => {
         res.status(500).json({msg: 'internal server error'})
     }
 })
+
 //POST /user/login -- validate login credentials
 router.post('/login', async (req,res) =>{
     try{
@@ -85,12 +89,61 @@ router.post('/login', async (req,res) =>{
     }
 })
 
+
+
+//PUT /park -- to add favorite park into user favorites:
+router.put('/park/:id/add', async (req,res) =>{
+    try{
+        // try to find user in db from the req.body.email
+        const updateFavorites = await db.User.findOne({ email: req.body.email }) //front-end should be using currentUser state to get email
+        console.log("Heyyyyooooo")
+        if(updateFavorites.favorites.includes({title: req.params.id}) == false){
+
+            updateFavorites.favorites.push({title: req.params.id})
+        }else{
+            console.log("already in favorites")
+        }
+
+        await updateFavorites.save()
+        res.send(updateFavorites)
+
+    }catch(err) { 
+        console.log(err)
+        res.json({msg: "favorite already exists"})
+    }
+})
+
+//PUT /park -- to delete favorite park into user favorites:
+router.put('/park/:id/delete', async (req,res) =>{
+    try{
+        // try to find user in db from the req.body.email
+        const updateFavorites = await db.User.findOne({ email: req.body.email }) //front-end should be using currentUser state to get email
+        updateFavorites.favorites.forEach((fav, i) => {
+            if(fav.title === req.params.id){
+                // console.log(req.params.id)
+                updateFavorites.favorites.splice(i ,1)
+            }
+        })
+        await updateFavorites.save()
+        res.send(updateFavorites)
+    }catch(err) {
+        console.log(err)
+    }
+})
+
+
 // GET /auth-locked -- will redirect if a bad jwt is found (or if one is not found)
 router.get('/auth-locked', authLockedRoute, (req, res) => {
     //do whatever with the user
-    console.log(res.locals.user)
+    // console.log(res.locals.user.favorites)
+    const myFavs = res.locals.user.favorites
+    console.log(myFavs)
     // send private data back
-    res.json({msg: 'welcome to the auth locked route you lucky dog'})
+    res.json({myFavs})
+    
+
+    // Show list of favorites 
+    
 })
 
 
