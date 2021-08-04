@@ -1,5 +1,5 @@
 # Park Hopper
-Try it out below
+Try it out here: 
 [Park Hopper](https://distracted-mestorf-527b99.netlify.app)
 
 
